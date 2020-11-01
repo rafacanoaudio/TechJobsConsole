@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -35,25 +36,25 @@ namespace TechJobsConsole
                     values.Add(aValue);
                 }
             }
+
             return values;
         }
 
-        //not working 100%. Will not find certain values, getting exception ...
         public static List<Dictionary<string, string>> FindByValue(string value)
         {
             LoadData();
 
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
 
+
+
             foreach (Dictionary<string, string> job in AllJobs)
             {
-                string aValue = job[value].ToLower();
-
-                if (aValue.Contains(value) && !jobs.Contains(job))
+                if (job.Any(j => j.Value.ToLower().Contains(value)) && true) // Jobs do not repeat????
                 {
-                    jobs.Add(job);
-                }
-
+                        jobs.Add(job);
+                    }
+                
             }
 
             return jobs;
